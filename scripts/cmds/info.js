@@ -25,11 +25,11 @@ module.exports = {
   },
 
   onStart: async function ({ message }) {
-    const botName = "Liza";
+    const botName = "Eroix";
     const botPrefix = ".";
     const authorName = "Asmit Adhikari";
     const authorFB = "FB.Me/61556797413007";
-    const authorInsta = "Benza X.";
+    const authorInsta = "Eroiix";
     const status = "Single";
 
     const urls = JSON.parse(fs.readFileSync('asmit.json'));
