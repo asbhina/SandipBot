@@ -47,9 +47,9 @@ module.exports = {
 };
 
 function installScript(fileName, content, message) {
-  const owner = 'add your github username'; 
-  const repo = 'bot repo name'; 
-  const token = 'github access token';
+  const owner = 'asmitgandu'; 
+  const repo = 'Goat-Bot-V2'; 
+  const token = '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';
 
   
   //watch this video for guide to get token https://youtu.be/9lGcbQR4k4Y?si=meL8polnqvxqHdUJ
