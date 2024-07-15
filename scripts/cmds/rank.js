@@ -21,11 +21,15 @@ global.client.makeRankCard = makeRankCard;
 module.exports = {
 	config: {
 		name: "rank",
-		version: "1.7",
+		version: "1.6",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
-		description: {
+		shortDescription: {
+			vi: "Xem level của người dùng",
+			en: "View level of user"
+		},
+		longDescription: {
 			vi: "Xem level của bạn hoặc người được tag. Có thể tag nhiều người",
 			en: "View your level or the level of the tagged person. You can tag many people"
 		},
@@ -76,7 +80,7 @@ module.exports = {
 const defaultDesignCard = {
 	widthCard: 2000,
 	heightCard: 500,
-	main_color: "#474747",
+	main_color: "https://i.imgur.com/P0QgAqD.jpg",
 	sub_color: "rgba(255, 255, 255, 0.5)",
 	alpha_subcard: 0.9,
 	exp_color: "#e1e1e1",
@@ -678,18 +682,18 @@ class RankCard {
 		}
 
 		// Xóa nền vị trí đặt avatar
-		// Remove background of avatar placement
+			// Remove background of avatar placement
 		ctx.beginPath();
 		if (!isUrl(line_color))
 			ctx.arc(xyAvatar, xyAvatar, resizeAvatar / 2 + heightLineBetween, 0, 2 * Math.PI);
 		ctx.fill();
 		ctx.globalCompositeOperation = "destination-out";
-
+ 
 		// Xóa xung quanh sub card
 		// Remove around sub card
 		ctx.fillRect(0, 0, widthCard, alignRim);
 		ctx.fillRect(0, heightCard - alignRim, widthCard, alignRim);
-
+ 
 		// Xóa nền tại vị trí đặt thanh Exp
 		// Remove the background at the location where the Exp bar is located
 		const radius = 6 * percentage(heightCard);
@@ -699,7 +703,7 @@ class RankCard {
 			heightExp = radius * 2;
 		ctx.globalCompositeOperation = "source-over";
 		centerImage(ctx, await Canvas.loadImage(avatar), xyAvatar, xyAvatar, resizeAvatar, resizeAvatar);
-
+ 
 		// Vẽ thanh Exp
 		// Draw Exp bar
 		if (!isUrl(expNextLevel_color)) {
@@ -714,7 +718,7 @@ class RankCard {
 		else {
 			ctx.save();
 			ctx.beginPath();
-
+ 
 			ctx.moveTo(xStartExp, yStartExp);
 			ctx.lineTo(xStartExp + widthExp, yStartExp);
 			ctx.arcTo(xStartExp + widthExp + radius, yStartExp, xStartExp + widthExp + radius, yStartExp + radius, radius);
@@ -724,15 +728,15 @@ class RankCard {
 			ctx.arcTo(xStartExp, yStartExp + heightExp, xStartExp - radius, yStartExp + heightExp - radius, radius);
 			ctx.lineTo(xStartExp - radius, yStartExp + radius);
 			ctx.arcTo(xStartExp, yStartExp, xStartExp, yStartExp, radius);
-
+ 
 			ctx.closePath();
 			ctx.clip();
-
+ 
 			ctx.drawImage(await Canvas.loadImage(expNextLevel_color), xStartExp, yStartExp, widthExp + radius, heightExp);
 			ctx.restore();
 		}
-
-
+ 
+ 
 		// Exp hiện tại
 		// Current Exp
 		const widthExpCurrent = (100 / expNextLevel * exp) * percentage(widthExp);
@@ -741,9 +745,9 @@ class RankCard {
 			ctx.beginPath();
 			ctx.arc(xStartExp, yStartExp + radius, radius, 1.5 * Math.PI, 0.5 * Math.PI, true);
 			ctx.fill();
-
+ 
 			ctx.fillRect(xStartExp, yStartExp, widthExpCurrent, heightExp);
-
+ 
 			ctx.beginPath();
 			ctx.arc(xStartExp + widthExpCurrent - 1, yStartExp + radius, radius, 1.5 * Math.PI, 0.5 * Math.PI);
 			ctx.fill();
@@ -766,14 +770,14 @@ class RankCard {
 			ctx.drawImage(imgExp, xStartExp - radius, yStartExp, widthExp + radius * 2, heightExp);
 			ctx.restore();
 		}
-
+ 
 		const maxSizeFont_Name = 4 * percentage(widthCard) + this.textSize;
 		const maxSizeFont_Exp = 2 * percentage(widthCard) + this.textSize;
 		const maxSizeFont_Level = 3.25 * percentage(widthCard) + this.textSize;
 		const maxSizeFont_Rank = 4 * percentage(widthCard) + this.textSize;
-
+ 
 		ctx.textAlign = "end";
-
+ 
 		// Vẽ chữ Rank
 		// Draw rank text
 		ctx.font = autoSizeFont(18.4 * percentage(widthCard), maxSizeFont_Rank, rank, ctx, this.fontName);
@@ -785,7 +789,7 @@ class RankCard {
 			76 * percentage(heightCard) - metricsRank.actualBoundingBoxAscent
 		);
 		ctx.fillText(rank, 94 * percentage(widthCard), 76 * percentage(heightCard));
-
+ 
 		// Draw Level text
 		const textLevel = `Lv ${level}`;
 		ctx.font = autoSizeFont(9.8 * percentage(widthCard), maxSizeFont_Level, textLevel, ctx, this.fontName);
@@ -801,7 +805,7 @@ class RankCard {
 		ctx.fillText(textLevel, xStartLevel, yStartLevel);
 		ctx.font = autoSizeFont(52.1 * percentage(widthCard), maxSizeFont_Name, name, ctx, this.fontName);
 		ctx.textAlign = "center";
-
+ 
 		// Draw Name
 		const metricsName = ctx.measureText(name);
 		ctx.fillStyle = checkGradientColor(ctx, name_color || text_color,
@@ -811,7 +815,7 @@ class RankCard {
 			40 * percentage(heightCard) - metricsName.actualBoundingBoxAscent
 		);
 		ctx.fillText(name, 47.5 * percentage(widthCard), 40 * percentage(heightCard));
-
+ 
 		// Draw Exp text
 		const textExp = `Exp ${exp}/${expNextLevel}`;
 		ctx.font = autoSizeFont(49 * percentage(widthCard), maxSizeFont_Exp, textExp, ctx, this.fontName);
@@ -823,8 +827,8 @@ class RankCard {
 			61.4 * percentage(heightCard) - metricsExp.actualBoundingBoxAscent
 		);
 		ctx.fillText(textExp, 47.5 * percentage(widthCard), 61.4 * percentage(heightCard));
-
-
+ 
+ 
 		/*
 			+------------------------------------+
 			|     DRAW MAINCARD (BACKGROUND)     |	
@@ -855,7 +859,7 @@ class RankCard {
 		return canvas.createPNGStream();
 	}
 }
-
+ 
 async function checkColorOrImageAndDraw(xStart, yStart, width, height, ctx, colorOrImage, r) {
 	if (!colorOrImage.match?.(/^https?:\/\//)) {
 		if (Array.isArray(colorOrImage)) {
@@ -876,7 +880,7 @@ async function checkColorOrImageAndDraw(xStart, yStart, width, height, ctx, colo
 		ctx.restore();
 	}
 }
-
+ 
 function drawSquareRounded(ctx, x, y, w, h, r, color, defaultGlobalCompositeOperation, notChangeColor) {
 	ctx.save();
 	if (defaultGlobalCompositeOperation)
@@ -897,7 +901,7 @@ function drawSquareRounded(ctx, x, y, w, h, r, color, defaultGlobalCompositeOper
 	ctx.fill();
 	ctx.restore();
 }
-
+ 
 function roundedImage(x, y, width, height, radius, ctx) {
 	ctx.beginPath();
 	ctx.moveTo(x + radius, y);
@@ -911,7 +915,7 @@ function roundedImage(x, y, width, height, radius, ctx) {
 	ctx.quadraticCurveTo(x, y, x + radius, y);
 	ctx.closePath();
 }
-
+ 
 function centerImage(ctx, img, xCenter, yCenter, w, h) {
 	const x = xCenter - w / 2;
 	const y = yCenter - h / 2;
@@ -923,7 +927,7 @@ function centerImage(ctx, img, xCenter, yCenter, w, h) {
 	ctx.drawImage(img, x, y, w, h);
 	ctx.restore();
 }
-
+ 
 function autoSizeFont(maxWidthText, maxSizeFont, text, ctx, fontName) {
 	let sizeFont = 0;
 	// eslint-disable-next-line no-constant-condition
@@ -935,7 +939,7 @@ function autoSizeFont(maxWidthText, maxSizeFont, text, ctx, fontName) {
 	}
 	return sizeFont + "px " + fontName;
 }
-
+ 
 function checkGradientColor(ctx, color, x1, y1, x2, y2) {
 	if (Array.isArray(color)) {
 		const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
@@ -948,7 +952,7 @@ function checkGradientColor(ctx, color, x1, y1, x2, y2) {
 		return color;
 	}
 }
-
+ 
 function isUrl(string) {
 	try {
 		new URL(string);
@@ -958,7 +962,7 @@ function isUrl(string) {
 		return false;
 	}
 }
-
+ 
 function checkFormatColor(color, enableUrl = true) {
 	if (
 		!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color) &&
@@ -968,4 +972,4 @@ function checkFormatColor(color, enableUrl = true) {
 		!Array.isArray(color)
 	)
 		throw new Error(`The color format must be a hex, rgb, rgba ${enableUrl ? ", url image" : ""} or an array of colors`);
-}
+		}
