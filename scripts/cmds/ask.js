@@ -30,13 +30,13 @@ module.exports = {
       }
       const prompt = event.body.substring(prefix.length).trim();
    if (!prompt) {
-        await message.reply("Hey ask me questions ⁉");
+        await message.reply("Hey ⁉");
         return;
       }
 
 
-      const response = await axios.get(`https://asmit-gpt.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
-      const answer = response.data.answer;
+      const response = await axios.get(`https://ai-api-lrd9.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
+      const answer = response.data;
 
  
     await message.reply({ body: `${answer}`,
