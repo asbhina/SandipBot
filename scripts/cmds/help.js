@@ -38,7 +38,7 @@ module.exports = {
  
 	langs: {
 		en: {			help: 
-      `╭───✧LIZA-AI
+      `╭───✧SANDY-AI
 │✿︎ nemo ✿︎ bard
 │✿︎ gemini ✿︎ gpt
 │✿︎ ask ✿︎ imagine
@@ -70,11 +70,11 @@ module.exports = {
 │✿︎ wasted ✿︎ shit
 │✿︎ avoid ✿︎ emoji
 ╰───────────❀
-╭──❀『 LIZA 』
+╭──❀『 SANDY 』
 │Total cmds:[ %4 ].
 ╰───────────❀
 ╭───❀
-│ ASMIT ADK  ♡︎
+│ OtinXSandip ♡︎
 ╰────────────❀`,
 
 			help2: "%1◊\n│ » Currently, the bot has %2 commands that can be used\n│ » Total Cmds: %3 \n│ %4\n╰─────────────◊",
