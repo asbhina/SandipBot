@@ -3,7 +3,7 @@ const axios = require('axios');
 const Prefixes = [
   '/ai',
   'kim',
-  'ggl',
+  'kancham',
   '+ai',
   'ai',
   'ask',
@@ -35,7 +35,7 @@ module.exports = {
       }
 
 
-      const response = await axios.get(`https://ai-api-lrd9.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
+      const response = await axios.get(`https://sandipbaruwal.onrender.com/gemini?prompt=${encodeURIComponent(prompt)}`);
       const answer = response.data;
 
  
